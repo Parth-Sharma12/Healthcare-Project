@@ -1,12 +1,28 @@
-import React from 'react'
+import React,{ useState, useEffect }  from 'react'
 import '../CSS/Unanswered.css';
 import AnsweringCard from './AnsweringCard';
 import { Link } from 'react-router-dom';
 export const Unanswered = () => {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetchPosts(); // Fetch posts when component mounts
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      // Make an HTTP request to fetch posts from your backend API
+      const response = await fetch('/api/posts'); // Modify the URL according to your backend API route
+      const data = await response.json();
+      setPosts(data); // Set the fetched posts to the state
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
   const linkStyle = {
     color: 'black',
     textDecoration: 'none',
-  };
+  };  
   return (
     <div className="app-container">
     {/* Navbar */}
@@ -37,8 +53,9 @@ export const Unanswered = () => {
     <img className="moving-img" src="images/unanswered3.png" alt="Moving Img" />
     </div>
     <div className='unanswered-ques'>
-      <AnsweringCard question = "What are the ways to avoid obesity?" username = "parth-sharma12"></AnsweringCard>
-      <AnsweringCard question = "What are the ways to avoid Heart Problems?" username = "parth-sharma12"></AnsweringCard>
+    {posts.map(post => (
+            <AnsweringCard question={post.description} username={post.PostedBy} datetime={post.upload_datetime} />
+    ))}
     </div>
     </div>
 

@@ -47,11 +47,8 @@
     top: 100%;
     left: 0;
   }
-  .vertical-column1{
-    height: auto;
-    background-color: rgb(207, 60, 209);
-    width: 400px;
-    padding: 64px;
+  .img_moderator1{
+    margin-left: 50px;
   }
   .logo{
     width: 100px;
@@ -114,8 +111,8 @@
     color: #555; /* Slightly darker text color */
   }
   .flag-img{
-    width: 200px;
-    height: 250px;
+    width: 400px;
+    height: 450px;
     position: fixed;
     bottom: 0;
     margin-left: -60px;

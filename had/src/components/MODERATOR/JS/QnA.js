@@ -50,7 +50,7 @@ export const QnA = () => {
       </div>
     </nav>
     <div className='main-content_mod1'>
-    <img className = "flag-img1" src="images/flagged_posts.png" alt="Column 1 Image" />
+    <img className = "flag-img1" src="images/flag3.png" alt="Column 1 Image" />
       <div className='QnAs'>
         {qaData.map((qa, index) => (
           <div className="column-item" key={index}>

@@ -21,14 +21,10 @@ function App() {
         <Route path="/" exact element={<FlaggedPosts/>} />
         <Route path="/QnA" exact element={<QnA/>}/> */}
 
-      Responder
+   Responder
       <Route path="/" exact element={<Home/>} />
       <Route path="/Unanswered" exact element={<Unanswered/>} />
-    
-
-      {/* ADMIN */}
-      {/* <Route path="/" exact element={<AdminPanel/>} />
-      <Route path="/Profile" exact element={<Profile/>}/> */}
+  
     </Routes>
   </Router>
   );

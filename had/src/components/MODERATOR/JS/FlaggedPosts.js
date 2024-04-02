@@ -1,32 +1,53 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import '../CSS/FlaggedPosts.css'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import PostCard from './PostCard';
 export const FlaggedPosts = () => {
+    const [flaggedPosts, setFlaggedPosts] = useState([]);
     const numberOfFlaggedPosts = 10;
-    const flaggedPosts = [
-        {
-            title: 'Post 1',
-            description: 'Fast food refers to easily prepared and quickly served meals that are often consumed on the go. It has become an integral part of modern society, offering convenience and accessibility to people with busy lifestyles. The popularity of fast food is attributed to factors such as speed, affordability, and widespread availability. While it has its advantages, there are also concerns about its impact on health, the environment, and overall well-being.',
-            imageSrc: '/images/adminprofile.png',
-            userName: 'User1',
-            postTime: '2h ago',
-        },
-        {
-            title: 'Post 2',
-            description: 'Description for Post 2...',
-            imageSrc: '/images/adminpanel.png',
-            userName: 'User2',
-            postTime: '1h ago',
-        },
-        // Add more posts as needed
-    ];
+    const fetchFlaggedPosts = async () => {
+        try {
+            // Perform fetch request to your backend API to fetch flagged posts data
+            const response = await fetch('your-backend-api-url');
+            const data = await response.json();
+            setFlaggedPosts(data); // Set the fetched data to state
+        } catch (error) {
+            console.error('Error fetching flagged posts:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch flagged posts data when the component mounts
+        fetchFlaggedPosts();
+    }, []); // Empty dependency array ensures the effect runs only once after initial render
+
     const linkStyle = {
     color: 'black',
     textDecoration: 'none',
   };
+  const disablePost = async (index) => {
+    try {
+        const updatedPosts = [...flaggedPosts];
+        updatedPosts[index].IsDisable = 1; // Set IsDisable to 1
+        setFlaggedPosts(updatedPosts); // Update state optimistically
+
+        // Send the updated post data to the backend
+        await fetch('your-backend-disable-post-api-url', {
+            method: 'PUT', // Assuming you're using PUT method to update the post
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedPosts[index]),
+        });
+
+        // If you need to refetch the data after disabling the post, uncomment the line below
+        // fetchFlaggedPosts();
+    } catch (error) {
+        console.error('Error disabling post:', error);
+    }
+};
     return (
         <div className="app-container">
             {/* Navbar */}
@@ -43,9 +64,7 @@ export const FlaggedPosts = () => {
                         <li class="nav-item">
                             <a class="nav-link" href="#">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Posts</a>
-                        </li>
+                            
                         <li class="nav-item">
                             <a class="nav-link" href="#"> <Link to="/QnA" style={linkStyle}>QnA's</Link></a>
                         </li>
@@ -58,8 +77,8 @@ export const FlaggedPosts = () => {
                 </div>
             </nav>
             <div className='main-content1'>
-                <div className="vertical-column1">
-                    <img className = "flag-img" src="images/flagged_posts.png" alt="Column 1 Image" />
+                <div className="img_moderator1">
+                    <img className = "flag-img" src="images/flag3.png" alt="Column 1 Image" />
                 </div>
                 <div className='Posts'>
                 {flaggedPosts.map((post, index) => (
@@ -68,10 +87,10 @@ export const FlaggedPosts = () => {
                             key={index} // Make sure to use a unique key for each post
                             title={post.title}
                             description={post.description}
-                            imageSrc={post.imageSrc}
-                            userName={post.userName}
-                            postTime={post.postTime}
-                            onDisable={() => console.log(`Disable post ${index}`)} // Add your disable post function
+                            imageSrc={post.image}
+                            userName={post.PostedBy}
+                            postTime={post.upload_datetime}
+                            onDisable={() =>disablePost(index)} // Add your disable post function
                             onUnflag={() => console.log(`Unflag post ${index}`)} // Add your unflag post function
                         />
                         </div>
