@@ -17,14 +17,15 @@ function App() {
   return (
     <Router>
     <Routes>
-        {/* Moderator
+        * Moderator
         <Route path="/" exact element={<FlaggedPosts/>} />
-        <Route path="/QnA" exact element={<QnA/>}/> */}
+        <Route path="/Profile" exact element={<Profile/>}/> */
+        <Route path="/QnA" exact element={<QnA/>}/> */
 
-   Responder
+   {/* Responder
       <Route path="/" exact element={<Home/>} />
       <Route path="/Unanswered" exact element={<Unanswered/>} />
-  
+   */}
     </Routes>
   </Router>
   );

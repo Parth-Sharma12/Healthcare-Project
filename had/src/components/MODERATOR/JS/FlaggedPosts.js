@@ -69,7 +69,7 @@ export const FlaggedPosts = () => {
                             <a class="nav-link" href="#"> <Link to="/QnA" style={linkStyle}>QnA's</Link></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="#"><Link to="/Profile" style={linkStyle}>Profile</Link></a>
                         </li>
 
                     </ul>
